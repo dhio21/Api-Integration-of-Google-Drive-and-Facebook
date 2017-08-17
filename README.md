@@ -16,27 +16,6 @@ The Assignments Contains PHP Project with Index.php file from where Project Exec
 
 
 
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-
 ## Built With
 
 * [Facebook API] - The web framework used
