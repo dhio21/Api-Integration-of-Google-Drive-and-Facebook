@@ -1,20 +1,17 @@
 <?php
 include "facebookobj.php";
-include 'gpConfig.php';
+include 'Google.php';
 require_once 'lib/Google_API/src/Google/Service/Drive.php';
+$gClient = new Google();
 if (isset($_GET['code'])) {
-    $gClient->authenticate($_GET['code']);
-    $_SESSION['token'] = $gClient->getAccessToken();
-    header('Location: albums.php');
+    $gClient->authcredentialscode($_GET['code']);
 }
-if (isset($_SESSION['token'])) {
-    $gClient->setAccessToken($_SESSION['token']);
-}
-if ($gClient->getAccessToken()) {
-    $gpUserProfile = $google_oauthV2->userinfo->get();
+if ($gClient->checkcredentials()) {
+    $gpUserProfile = $gClient->getuserinfo();
 } else {
-    $authUrl = $gClient->createAuthUrl();
+    $authUrl = $gClient->g_client->createAuthUrl();
 }
+
 if (isset($_SESSION['facebook_access_token'])) {
     $fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
     try {
@@ -39,7 +36,7 @@ if (isset($_SESSION['facebook_access_token'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Albums | Album World</title>
+    <title><?php echo $profile['name'].'\'s' ?> Album World</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -97,13 +94,13 @@ if (isset($_SESSION['facebook_access_token'])) {
             </button>' ?>
             </div>
             <div class="col col-lg-3 col-xl-3 col-md-4 col-sm-12" style="margin-top: 10px;">
-                <?php if(isset($_SESSION['token'])){
+                <?php if (isset($_SESSION['token'])) {
                     echo '<button class="btn btn-outline-danger" ng-click="download_Multiple_Album(2)" id="sharemultiple"
                         ng-disabled="sharestate">
                     Share <span class="badge badge-info">{{albumselected}}</span> album to drive
                     <span class="sr-only">unread messages</span>
                 </button>';
-                }else{  echo '<button class="btn btn-outline-danger"
+                } else {  echo '<button class="btn btn-outline-danger"
                         disabled>
                     Share <span class="badge badge-info">{{albumselected}}</span> album to drive
                     <span class="sr-only">unread messages</span>
@@ -126,7 +123,7 @@ if (isset($_SESSION['facebook_access_token'])) {
         <div class="polaroid card" style="margin: 5px auto;">
             <?php echo '<img src="' . $useralbum['picture']['url'] . '" class="card-img-top" alt="Norway" height="170px" width="100%;">' ?>
             <div class="contain card-body">
-                <?php echo '<a  href ng-click="loadimage(\'AlbumImage.php?albumid='.$useralbum['id'].'\')" class="album_title">' . $useralbum['name'] . '</a>'; ?>
+                <?php echo '<a  href ng-click="loadimage(\'AlbumImage.php?albumid=' . $useralbum['id'] . '\')" class="album_title">' . $useralbum['name'] . '</a>'; ?>
                 <div class="container-fluid">
                     <div class="album_select_download">
                         <?php echo '<label for="' . $useralbum['id'] . '" class="btn btn-outline-primary">Select ';

@@ -44,9 +44,6 @@ angular.module("fbalbum", []).controller("albumController", function ($window, $
             document.getElementById("sharemultiple").disabled = true;
         }
     };
-    // $scope.singleshare = function (albumname, albumid) {
-    //     $scope.sharealbum({data: [{"useralbumid": albumid + "", "useralbumname": albumname}]});
-    // }
     $scope.singledownload = function (albumname, albumid,type) {
         if(type==1){
             $scope.downloadalbum({data: [{"useralbumid": albumid + "", "useralbumname": albumname}]});
@@ -55,9 +52,6 @@ angular.module("fbalbum", []).controller("albumController", function ($window, $
             $scope.sharealbum({data: [{"useralbumid": albumid + "", "useralbumname": albumname}]});
         }
     };
-    // $scope.share_Multiple_Album = function () {
-    //     $scope.sharealbum({data: $scope.selectedalbum});
-    // }
     $scope.download_Multiple_Album = function (type) {
         if(type==1){
             $scope.downloadalbum({data: $scope.selectedalbum});
@@ -65,16 +59,6 @@ angular.module("fbalbum", []).controller("albumController", function ($window, $
             $scope.sharealbum({data: $scope.selectedalbum});
         }
     };
-    // $scope.share_All_Album = function () {
-       
-    //     for (var i in $scope.allalbumjson) {
-    //         $scope.selectedalbum.push({
-    //             "useralbumid": $scope.allalbumjson[i]['id'] + "",
-    //             "useralbumname": $scope.allalbumjson[i]['name']
-    //         });
-    //     }
-    //     $scope.sharealbum({data: $scope.selectedalbum});
-    // }
     $scope.download_All_Album = function (type) {
        
         for (var i in $scope.allalbumjson) {

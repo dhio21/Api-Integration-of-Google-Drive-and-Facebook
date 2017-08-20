@@ -1,15 +1,16 @@
 <?php
-include "deletefolder.php";
+include "Util.php";
 require_once 'facebookobj.php';
 
 $postdata = file_get_contents("php://input");
 $albumrequest = json_decode($postdata);
 
 $fb->setDefaultAccessToken($_SESSION["facebook_access_token"]);
-
+$ufun = new Util();
+$ufun->DeleteFolder();
 $zip = new ZipArchive;
 date_default_timezone_set('UTC');
-$rndmString="assets/UserData/".generateRandomString(26)."_".date("h-i");
+$rndmString = "assets/UserData/" . $ufun->generateRandomString(26) . "_" . date("h-i");
 mkdir($rndmString);
 if ($zip->open($rndmString . '/album.zip', ZipArchive::CREATE) === TRUE) {
     try {
