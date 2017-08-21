@@ -1,18 +1,24 @@
 # Album World
 
-In this web application your can login with facebook after that checkout your albums and if you wish you can download in your local device
-and you can also move it in your google drive by login with your google account.
+In this web application you can login with facebook after that checkout your albums and if you wish you can download in your local device and you can also move it in your google drive by login with your google account.
 
-## Getting Started
+## Getting Started - Configure
 
 * Download and install the [xampp](https://www.apachefriends.org/index.html) or [wamp](http://www.wampserver.com/en/).
-* If you are using xampp than upload this project folder in "htdocs".
-* If you are using wampp than upload this project folder in "www".
-* Start your xampp's or wampp's apache server.
-* Run this web application by writing localhost/foldername in browser url.
-* After running you have to login with facebook, then you can download your albums in zip file and you can also view in slideshow by click on album name then clicking on any image.
+* If you are using xampp then upload this project folder in "htdocs".
+* If you are using wampp then upload this project folder in "www".
+* If you are using xampp's then click on "Start" button in beside of "Apache".
+* If you are using wampp just have to start it.
+  
+## Getting Started - How to execute
+
+* Open your web browser then  write "localhost/project_folder_name" in url.
+* After running you have to login with facebook, then you can download your albums in zip file and you can also view in slideshow by       click on album name then clicking on any image.
 * You can also Share your albums in your google drive, before that you want to login with google account in this web application
 
+## For live demo
+* visit [albumworld.herokuapp.com](https:albumworld.herokuapp.com)
+* Note: This website is hosted on free heroku web hosting, so that could be a request do not create more than 5 session at a time. 
 
 ### Prerequisites
 
@@ -33,5 +39,5 @@ and you can also move it in your google drive by login with your google account.
 
 ## Author
 
-* **Smit Machchhar** 
+* **[Smit Machchhar](https://www.linkedin.com/in/smit-machchhar-161a58121/)** 
 
