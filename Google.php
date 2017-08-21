@@ -4,9 +4,9 @@ include_once 'lib/Google_API/src/Google/Auth/OAuth2.php';
 
 class Google
 {
-    private $clientid = "815314182515-moevrsenivtuepf78b94rgccrbbkljhr.apps.googleusercontent.com";
-    private $clientsecret = "NvZBimjoDqOPhUH6BIHcN0g1";
-    private $callbackuri = "http://localhost/fbdemo/albums.php";
+    private $clientid = "371055940608-8i7mvta7rsfn5in8i4dc3s2i4m1g2o2i.apps.googleusercontent.com";
+    private $clientsecret = "sDKhZ9e0Vr_RtkZ5wnb2g0Zb";
+    private $callbackuri = "https://albumworld.herokuapp.com/albums.php";
     private $scope = array(
         'https://www.googleapis.com/auth/drive.file',
         'https://www.googleapis.com/auth/userinfo.email',

@@ -1,36 +1,7 @@
 <?php
-require_once 'facebookobj.php';
-$helper = $fb->getRedirectLoginHelper(); // optional
-try {
-    if (isset($_SESSION['facebook_access_token'])) {
-        $accessToken = $_SESSION['facebook_access_token'];
-    } else {
-        $accessToken = $helper->getAccessToken();
-    }
-} catch(Facebook\Exceptions\FacebookResponseException $e) {
-    echo 'Graph returned an error: ' . $e->getMessage();
-    exit;
-} catch(Facebook\Exceptions\FacebookSDKException $e) {
-    echo 'Facebook SDK returned an error: ' . $e->getMessage();
-    exit;
-}
-if (isset($accessToken)) {
-    if (isset($_SESSION['facebook_access_token'])) {
-        header("location:albums.php");
-    } else {
-        $_SESSION['facebook_access_token'] = (string) $accessToken;
-        $oAuth2Client = $fb->getOAuth2Client();
-        $longLivedAccessToken = $oAuth2Client->getLongLivedAccessToken($_SESSION['facebook_access_token']);
-        $_SESSION['facebook_access_token'] = (string) $longLivedAccessToken;
-        $fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
-    }
-    if (isset($_GET['code'])) {
-        header('Location:albums.php');
-    }
-} else {
-    $permissions = ['email','user_photos'];
-    $loginUrl = $helper->getLoginUrl('http://localhost/fbdemo/', $permissions);
-}
+require_once 'FacebookConfig.php';
+$_fbobj=new FacebookConfig();
+$_fbobj->facebooklogin();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,17 +24,15 @@ if (isset($accessToken)) {
                 world</h1>
             <p class="lead" style="font-family: 'Roboto Condensed', sans-serif;">Remember your beautiful memories in a
                 blink.</p>
-            <?php
-                echo '<button ng-click="loginauth()" class="loginBtn loginBtn--facebook" name="loginBtn">
+				<button ng-click="loginauth()" class="loginBtn loginBtn--facebook" name="loginBtn">
                     Login with Facebook
-                    </button>';
-            ?>
+                    </button>
         </div>
     </div>
     <div class="container">
         <div class="page-header text-center ">
             <h1 id="timeline" style="color:#838282 ;font-family: 'Raleway', sans-serif;, sans-serif;">WHAT THIS
-                PROVIDE</h1>
+                PROVIDES</h1>
         </div>
         <ul class="timeline">
             <li>
@@ -120,11 +89,11 @@ if (isset($accessToken)) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
             integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
             crossorigin="anonymous"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 angular.module("fbalbum", []).controller("albumController", function ($window, $scope, $http) {
             $scope.loginauth=function () {
-                $window.location="<?php echo $loginUrl;?>";
+                $window.location="<?php echo $_fbobj->loginUrl;?>";
             }
         });
 </script>

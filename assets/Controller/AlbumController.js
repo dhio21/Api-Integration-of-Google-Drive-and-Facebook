@@ -14,6 +14,7 @@ angular.module("fbalbum", []).controller("albumController", function ($window, $
             message: "<h4>" + " Loading album images</h4>"
         });
         $("#albums").load(loadurl, function(responseTxt, statusTxt, jqXHR){
+			console.log(responseTxt);
             if(statusTxt == "success"){
                 HoldOn.close();
             }

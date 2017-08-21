@@ -1,11 +1,12 @@
 <?php
 
 include "Util.php";
-include "facebookobj.php";
+include "FacebookConfig.php";
 include "Google.php";
 include 'lib/Google_API/src/Google/Service/Drive.php';
 
 $utilfun = new Util();
+$_fbobj=new FacebookConfig();
 $gClient = new Google();
 
 $utilfun->DeleteFolder();
@@ -13,21 +14,19 @@ $utilfun->DeleteFolder();
 $postdata = file_get_contents("php://input");
 $request = json_decode($postdata);
 $gClient->g_client->setAccessToken($_SESSION["token"]);
-$fb->setDefaultAccessToken($_SESSION["facebook_access_token"]);
+$_fbobj->fb->setDefaultAccessToken($_SESSION["facebook_access_token"]);
 
 date_default_timezone_set('UTC');
 $rndmString = "assets/UserData/" . $utilfun->generateRandomString(26) . "_" . date("h-i");
 mkdir($rndmString);
-try {
-    $profile_request = $fb->get('/me?fields=name');
+    $profile_request = $_fbobj->fb->get('/me?fields=name');
     $profile = $profile_request->getGraphNode()->asArray();
     $service = new Google_Service_Drive($gClient->g_client);
     $folderId = $gClient->getFolderExistsCreate($service, "facebook_" . str_replace(" ", "_", $profile['name']) . "_album", "");
     foreach ($request->data as $key => $value) {
         $albumID = $value->useralbumid;
         $albumName = str_replace("+", " ", $value->useralbumname);
-        $useralbumimage_response = $fb->get("/" . $albumID . "/photos?fields=source");
-        $useralbumimages = $useralbumimage_response->getGraphEdge()->asArray();
+        $useralbumimages = $_fbobj->getuseralbumimages($albumID);
         $subFolderId = $gClient->createSubFolder($service, $folderId, $albumName);
         foreach ($useralbumimages as $keyimg => $valueimg) {
             $data = file_get_contents($valueimg['source']);
@@ -36,19 +35,10 @@ try {
                 exit;
             }
             fwrite($fp, $data);
-
             $title = $albumName . $keyimg;
             $filename = $rndmString . "/" . $albumName . $keyimg . ".jpg";
             $mimeType = mime_content_type($filename);
             $gClient->insertFile($service, $title, $mimeType, $filename, $subFolderId);
         }
     }
-} catch (Facebook\Exceptions\FacebookResponseException $e) {
-    echo 'Graph returned an error: ' . $e->getMessage();
-    header("Location: ./");
-    exit;
-} catch (Facebook\Exceptions\FacebookSDKException $e) {
-    echo 'Facebook SDK returned an error: ' . $e->getMessage();
-    exit;
-}
 ?>

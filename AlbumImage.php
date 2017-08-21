@@ -1,28 +1,12 @@
 <?php
-include "facebookobj.php";
+include "FacebookConfig.php";
 if (isset($_GET['albumid'])) {
+	$_fbobj=new FacebookConfig();
     if (isset($_SESSION['facebook_access_token'])) {
-        $fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
-        try {
-            $profile_request = $fb->get('/me?fields=picture.width(200).height(200),id,name,cover');
-            $profile = $profile_request->getGraphNode()->asArray();
-
-            $useralbumimage_response = $fb->get("/" . $_GET['albumid'] . "/photos?fields=source,name,id");
-            $useralbumimages = $useralbumimage_response->getGraphEdge()->asArray();
-
-            $album_res= $fb->get("/" . $_GET['albumid'] . "/");
-            $nameidalbum = $album_res->getGraphNode()->asArray();
-        } catch (Facebook\Exceptions\FacebookResponseException $e) {
-            // When Graph returns an error
-            echo 'Graph returned an error: ' . $e->getMessage();
-            // redirecting user back to app login page
-            header("Location: ./");
-            exit;
-        } catch (Facebook\Exceptions\FacebookSDKException $e) {
-            // When validation fails or other lqocal issues
-            echo 'Facebook SDK returned an error: ' . $e->getMessage();
-            exit;
-        }
+        $_fbobj->fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
+			$useralbumimages=$_fbobj->getuseralbumimages($_GET['albumid']);
+			$user_res=$_fbobj->fb->get("/".$_GET['albumid']."?fields=name");
+			$albumnameid=$user_res->getGraphNode()->asArray();
     } else {
         header("location:index.php");
     }
@@ -38,9 +22,9 @@ if (isset($_GET['albumid'])) {
         <div class="container text-center" style="margin: 15px 0px 15px 30px;">
         <ol class="breadcrumb">
             <li class="breadcrumb-item" style="font-size: larger"><a href="albums.php">Album</a></li>
-            <li class="breadcrumb-item active" style="font-size: larger"><?php echo $nameidalbum['name']; ?></li>
+            <li class="breadcrumb-item active" style="font-size: larger"><?php echo $albumnameid['name']; ?></li>
         </ol>
-            <h2 class="text-center" style="color: #3b5998;font-family: 'Roboto Condensed', sans-serif;"><?php echo $nameidalbum['name'];echo '\'s' ?> Image</h2>
+            <h2 class="text-center" style="color: #3b5998;font-family: 'Roboto Condensed', sans-serif;"><?php echo $albumnameid['name'];echo '\'s' ?> Image</h2>
         </div>
     </div>
     <div class="gallery" >

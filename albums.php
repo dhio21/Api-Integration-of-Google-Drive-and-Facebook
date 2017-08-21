@@ -1,7 +1,9 @@
 <?php
-include "facebookobj.php";
+include "FacebookConfig.php";
 include 'Google.php';
 require_once 'lib/Google_API/src/Google/Service/Drive.php';
+
+$_fbobj=new FacebookConfig();
 $gClient = new Google();
 if (isset($_GET['code'])) {
     $gClient->authcredentialscode($_GET['code']);
@@ -11,24 +13,11 @@ if ($gClient->checkcredentials()) {
 } else {
     $authUrl = $gClient->g_client->createAuthUrl();
 }
-
 if (isset($_SESSION['facebook_access_token'])) {
-    $fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
-    try {
-        $profile_request = $fb->get('/me?fields=picture.width(200).height(200),id,name,cover');
-        $profile = $profile_request->getGraphNode()->asArray();
-
-        $useralbums_response = $fb->get("/" . $profile["id"] . "/albums?fields=picture,name,id");
-        $useralbums = $useralbums_response->getGraphEdge()->asArray();
-        $albumjson = json_encode($useralbums);
-    } catch (Facebook\Exceptions\FacebookResponseException $e) {
-        echo 'Graph returned an error: ' . $e->getMessage();
-        header("Location: ./");
-        exit;
-    } catch (Facebook\Exceptions\FacebookSDKException $e) {
-        echo 'Facebook SDK returned an error: ' . $e->getMessage();
-        exit;
-    }
+    $_fbobj->fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
+    $profile=$_fbobj->getuserinfomation();
+    $useralbums = $_fbobj->getuseralbums($profile['id']);
+    $albumjson = json_encode($useralbums);
 } else {
     header("location:index.php");
 }
@@ -90,21 +79,22 @@ if (isset($_SESSION['facebook_access_token'])) {
                 </button>
             </div>
             <div class="col col-lg-3 col-xl-3 col-md-4 col-sm-12" style="margin-top: 10px;">
-                <?php echo '<button class="btn btn-outline-primary" ng-click="download_All_Album(1)">Download all <i class="fa fa-download" aria-hidden="true"></i>
-            </button>' ?>
+                <button class="btn btn-outline-primary" ng-click="download_All_Album(1)">Download all <i class="fa fa-download" aria-hidden="true"></i>
+            </button>
             </div>
             <div class="col col-lg-3 col-xl-3 col-md-4 col-sm-12" style="margin-top: 10px;">
-                <?php if (isset($_SESSION['token'])) {
-                    echo '<button class="btn btn-outline-danger" ng-click="download_Multiple_Album(2)" id="sharemultiple"
+                <?php if (isset($_SESSION['token'])) {?>
+                    <button class="btn btn-outline-danger" ng-click="download_Multiple_Album(2)" id="sharemultiple"
                         ng-disabled="sharestate">
                     Share <span class="badge badge-info">{{albumselected}}</span> album to drive
                     <span class="sr-only">unread messages</span>
-                </button>';
-                } else {  echo '<button class="btn btn-outline-danger"
-                        disabled>
-                    Share <span class="badge badge-info">{{albumselected}}</span> album to drive
-                    <span class="sr-only">unread messages</span>
-                </button>';}?>
+                </button>
+                <?php } else {?>
+					<button class="btn btn-outline-danger" disabled>
+						Share <span class="badge badge-info">{{albumselected}}</span> album to drive
+						<span class="sr-only">unread messages</span>
+					</button>
+				<?php }?>
             </div>
             <div class="col col-lg-3 col-xl-3 col-md-4 col-sm-12" style="margin-top: 10px;">
                 <?php echo '<button class="btn btn-outline-danger" ng-click="download_All_Album(2)"';
@@ -123,8 +113,8 @@ if (isset($_SESSION['facebook_access_token'])) {
         <div class="polaroid card" style="margin: 5px auto;">
             <?php echo '<img src="' . $useralbum['picture']['url'] . '" class="card-img-top" alt="Norway" height="170px" width="100%;">' ?>
             <div class="contain card-body">
-                <?php echo '<a  href ng-click="loadimage(\'AlbumImage.php?albumid=' . $useralbum['id'] . '\')" class="album_title">' . $useralbum['name'] . '</a>'; ?>
                 <div class="container-fluid">
+                <?php echo '<a  href ng-click="loadimage(\'AlbumImage.php?albumid=' . $useralbum['id'] . '\')" class="album_title">' . $useralbum['name'] . '</a>'; ?>
                     <div class="album_select_download">
                         <?php echo '<label for="' . $useralbum['id'] . '" class="btn btn-outline-primary">Select ';
                         echo '<input type="checkbox" name="' . $useralbum['name'] . '" id="' . $useralbum['id'] . '" ng-model="isalbum[' . $i . ']" ng-true-value="true" ng-false-value="false" ng-change="addalbum(' . $i . ',\'' . $useralbum['name'] . '\',' . $useralbum['id'] . ')"/>';
