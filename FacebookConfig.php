@@ -47,7 +47,7 @@ class FacebookConfig
 	
 	function getloginUrl(){
 		$permissions = ['email','user_photos'];
-		return $this->fb->helper->getLoginUrl('http://localhost:1234/fbdemo/', $permissions);
+		return $this->fb->helper->getLoginUrl('https://albumworld.herokuapp.com/', $permissions);
 	}
     function setcredentials($accessToken)
     {
