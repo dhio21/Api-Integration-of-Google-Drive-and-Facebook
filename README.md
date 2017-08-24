@@ -1,5 +1,4 @@
 # Album World
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/machchhars/Assignment/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/machchhars/Assignment/?branch=master)  [![Code Coverage](https://scrutinizer-ci.com/g/machchhars/Assignment/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/machchhars/Assignment/?branch=master)  [![Build Status](https://scrutinizer-ci.com/g/machchhars/Assignment/badges/build.png?b=master)](https://scrutinizer-ci.com/g/machchhars/Assignment/build-status/master)
 
 In this web application you can login with facebook after that checkout your albums and if you wish you can download in your local device and you can also move it in your google drive by login with your google account.
 
