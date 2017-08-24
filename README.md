@@ -18,7 +18,7 @@ In this web application you can login with facebook after that checkout your alb
 * You can also Share your albums in your google drive, before that you want to login with google account in this web application
 
 ## For live demo
-* visit [albumworld.herokuapp.com](https:albumworld.herokuapp.com)
+* visit [albumworld.herokuapp.com](https://www.albumworld.herokuapp.com)
 * Note: This website is hosted on free heroku web hosting, so that could be a request do not create more than 5 session at a time. 
 
 ### Prerequisites
