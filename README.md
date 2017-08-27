@@ -6,8 +6,9 @@ In this web application you can login with facebook after that checkout your alb
 ## Getting Started - Configure
 
 * Download and install the [xampp](https://www.apachefriends.org/index.html) or [wamp](http://www.wampserver.com/en/).
-* If you are using xampp then upload this project folder in "htdocs".
-* If you are using wampp then upload this project folder in "www".
+* Download this project and rename folder it with "fbdemo".
+* If you are using xampp then copy this project folder in "htdocs".
+* If you are using wampp then copy this project folder in "www".
 * If you are using xampp's then click on "Start" button in beside of "Apache".
 * If you are using wampp just have to start it.
   
@@ -19,7 +20,6 @@ In this web application you can login with facebook after that checkout your alb
 
 ## For live demo
 * visit [albumworld.herokuapp.com](https://albumworld.herokuapp.com)
-* Note: This website is hosted on free heroku web hosting, so that could be a request do not create more than 5 session at a time. 
 
 ### Prerequisites
 
