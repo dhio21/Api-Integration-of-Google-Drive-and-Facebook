@@ -10,8 +10,8 @@ class FacebookConfig
     {
 		session_start();
         $this->fb = new \Facebook\Facebook([
-            'app_id' => '1573672072703793',
-            'app_secret' => 'c6b5c19a282fd28c529f34310dfb0047',
+            'app_id' => '2023485154541682',
+            'app_secret' => 'bf083d866432dfe022efd8b55b408aa2',
             'default_graph_version' => 'v2.10',
         ]);
 		$this->fb->helper = $this->fb->getRedirectLoginHelper();
@@ -47,7 +47,7 @@ class FacebookConfig
 	
 	function getloginUrl(){
 		$permissions = ['email','user_photos'];
-		return $this->fb->helper->getLoginUrl('https://albumworld.herokuapp.com/', $permissions);
+		return $this->fb->helper->getLoginUrl('http://localhost/fbdemo/', $permissions);
 	}
     function setcredentials($accessToken)
     {
