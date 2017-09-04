@@ -4,8 +4,8 @@ include_once 'lib/Google_API/src/Google/Auth/OAuth2.php';
 
 class Google
 {
-    private $clientid = "815314182515-moevrsenivtuepf78b94rgccrbbkljhr.apps.googleusercontent.com";
-    private $clientsecret = "NvZBimjoDqOPhUH6BIHcN0g1";
+    private $clientid = "CLIENT ID";
+    private $clientsecret = "CLIENT SECRET";
     private $callbackuri = "http://localhost/fbdemo/albums.php";
     private $scope = array(
         'https://www.googleapis.com/auth/drive.file',
