@@ -10,8 +10,8 @@ class FacebookConfig
     {
 		session_start();
         $this->fb = new \Facebook\Facebook([
-            'app_id' => '2023485154541682',
-            'app_secret' => 'bf083d866432dfe022efd8b55b408aa2',
+            'app_id' => 'Enter APP ID',
+            'app_secret' => 'Enter APP SECRET',
             'default_graph_version' => 'v2.10',
         ]);
 		$this->fb->helper = $this->fb->getRedirectLoginHelper();
@@ -86,7 +86,16 @@ class FacebookConfig
 	function getuseralbumimages($albumid){
 		try{
 			$useralbumimage_response = $this->fb->get("/" . $albumid . "/photos?fields=source,name,id");
-			return $useralbumimage_response->getGraphEdge()->asArray();
+			$useralbumimages=$useralbumimage_response->getGraphEdge();
+			$bkpuseralbumimages=$useralbumimages;
+           		while($this->fb->next($bkpuseralbumimages)!=null)
+           		{
+                		$tmp=$this->fb->next($bkpuseralbumimages)->asArray();
+                		$useralbumimages=$useralbumimages->asArray();
+                		$useralbumimages=array_merge($useralbumimages,$tmp);
+                		$bkpuseralbumimages=$this->fb->next($bkpuseralbumimages);
+            		}
+	   		return $useralbumimages;
 		} catch (Facebook\Exceptions\FacebookResponseException $e) {
 			echo 'Graph returned an error: ' . $e->getMessage();
 			header("Location: ./");
