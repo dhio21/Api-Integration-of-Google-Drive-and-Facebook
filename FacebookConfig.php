@@ -88,10 +88,10 @@ class FacebookConfig
 			$useralbumimage_response = $this->fb->get("/" . $albumid . "/photos?fields=source,name,id");
 			$useralbumimages=$useralbumimage_response->getGraphEdge();
 			$bkpuseralbumimages=$useralbumimages;
+			$useralbumimages=$useralbumimages->asArray();
            		while($this->fb->next($bkpuseralbumimages)!=null)
            		{
                 		$tmp=$this->fb->next($bkpuseralbumimages)->asArray();
-                		$useralbumimages=$useralbumimages->asArray();
                 		$useralbumimages=array_merge($useralbumimages,$tmp);
                 		$bkpuseralbumimages=$this->fb->next($bkpuseralbumimages);
             		}
