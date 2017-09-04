@@ -9,8 +9,8 @@ In this web application you can login with facebook after that checkout your alb
 * Download this project and rename folder it with "fbdemo".
 * If you are using xampp then copy this project folder in "htdocs".
 * If you are using wampp then copy this project folder in "www".
-* You have to assign your Facebook APP Id, APP SECRET in FacebookConfig.php page.
-* You have to assign your Google CLIENT ID, CLIENT SECRET in Google.php page.
+* You have to assign your Facebook APP ID, APP SECRET in FacebookConfig Class.
+* You have to assign your Google CLIENT ID, CLIENT SECRET in Google Class.
 * If you are using xampp's then click on "Start" button in beside of "Apache".
 * If you are using wampp just have to start it.
   
@@ -28,7 +28,6 @@ In this web application you can login with facebook after that checkout your alb
 - WAMP/XAMPP SERVER
 - Latest verison of php
 
-
 ## Built With
 
 * [Facebook API] - Web PHP SDK
@@ -39,6 +38,10 @@ In this web application you can login with facebook after that checkout your alb
 * [ANGULER.JS] - Supporting Javascript Technology
 * [JQuery] - Supporting Javascript Technology
 * [AJAX] - Used for Asynchronous Javascript 
+
+## Contact
+
+* I you have any doubt or suggestion then contact me on [Smit Machchhar](mailto:smit.machchhar12370@marwadieducation.edu.in).
 
 ## Author
 
