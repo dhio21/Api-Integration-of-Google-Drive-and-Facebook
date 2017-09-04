@@ -9,6 +9,8 @@ In this web application you can login with facebook after that checkout your alb
 * Download this project and rename folder it with "fbdemo".
 * If you are using xampp then copy this project folder in "htdocs".
 * If you are using wampp then copy this project folder in "www".
+* You have to assign your Facebook APP Id, APP SECRET in FacebookConfig.php page.
+* You have to assign your Google CLIENT ID, CLIENT SECRET in Google.php page.
 * If you are using xampp's then click on "Start" button in beside of "Apache".
 * If you are using wampp just have to start it.
   
