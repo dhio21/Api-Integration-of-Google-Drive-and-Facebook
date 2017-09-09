@@ -61,7 +61,7 @@ angular.module("fbalbum", []).controller("albumController", function ($window, $
         }
     };
     $scope.download_All_Album = function (type) {
-       
+        $scope.selectedalbum = [];
         for (var i in $scope.allalbumjson) {
             $scope.selectedalbum.push({
                 "useralbumid": $scope.allalbumjson[i]['id'] + "",
