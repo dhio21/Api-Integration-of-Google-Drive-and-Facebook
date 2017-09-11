@@ -23,7 +23,9 @@ mkdir($rndmString);
     $profile = $profile_request->getGraphNode()->asArray();
     $service = new Google_Service_Drive($gClient->g_client);
     $folderId = $gClient->getFolderExistsCreate($service, "facebook_" . str_replace(" ", "_", $profile['name']) . "_album", "");
+    $albumsize=count($request->data);
     foreach ($request->data as $key => $value) {
+        $albumsize-=1;
         $albumID = $value->useralbumid;
         $albumName = str_replace("+", " ", $value->useralbumname);
         $useralbumimages = $_fbobj->getuseralbumimages($albumID);
@@ -40,5 +42,9 @@ mkdir($rndmString);
             $mimeType = mime_content_type($filename);
             $gClient->insertFile($service, $title, $mimeType, $filename, $subFolderId);
         }
+        if($albumsize==0){
+            break;
+        }
     }
+    echo "Success";
 ?>
