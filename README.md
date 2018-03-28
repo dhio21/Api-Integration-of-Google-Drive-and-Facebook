@@ -41,7 +41,7 @@ In this web application you can login with facebook after that checkout your alb
 
 ## Contact
 
-* I you have any doubt or suggestion then contact me on [Smit Machchhar](mailto:smit.machchhar12370@marwadieducation.edu.in).
+* If you have any doubt or suggestion then contact me on [Smit Machchhar](mailto:smit.machchhar12370@marwadieducation.edu.in).
 
 ## Author
 
